@@ -1,4 +1,5 @@
 # PostgreSQL_DVD_Rental_Queries
+
 ```
 Step 1: Install postgreSQL server
 Step 2: Install pgAdmin
