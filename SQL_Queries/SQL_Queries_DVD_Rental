@@ -1,0 +1,570 @@
+-- SQL = Stand for Structured Query Language
+-- SQL = lets you access and manipulate database
+-- What can SQL do?
+-- SQL can execute queries against the database
+-- SQL it can retrieve data from the database
+-- SQL can insert record into the database
+-- SQL can also update records in the database
+-- SQL can delete records in the dabase
+-- SQL can allow us to view the database schema and tables.
+
+-- PostgreSQL is a RDBMS database. (MySQL, Oracle, SQLserver..)
+-- RDBMS = Relational Databases Management System
+
+--- Statements ---
+-- The SELECT statement is used to select data from a database.
+-- The SELECT DISTINCT statement is used to return distinct (different) values.
+-- The WHERE clause is used to filter records.
+-- SQL AND, OR The WHERE clause can be combined with AND, OR Operators.
+-- The AND and OR operator are used to filter records based on more than 1 condition
+-- The OR Operator displays records if any condition separated by OR is TRUE.
+-- The ORDER BY keyword is used to sort the result-set in ascending order or descending order
+-- SQL IS NULL Operator A Field with a NULL value is a field with no value
+-- LIMIT is a clause use to specify number of records to return
+-- The MIN() function returns the smallest value from the selected column
+-- The MAX() function returns the largest values from the selected Column
+-- The COUNT() Function returns the number of rows that matches a specific criteria. 
+-- AVG() function returns the average value of a number column
+-- Query the average replacement cost for film table
+-- THE SUM() function returns the total sum of any numberic value
+-- IN Operator allows you to specify multiple values in the WHERE clause
+-- IN Operator is a shorthand for multiple OR conditions
+
+-- Select Statements
+-- We use Select to query the database SQL keywords are not case sensitive
+-- select can also be SELECT
+
+-- Useful SQL Commands 
+-- SELECT, UPDATE, DELETE, INSERT INTO, CREATE DATABASE, ALTER TABLE, CREATE TABLE
+-- DROP TABLE
+
+-- EXECUTING QUERIES
+-- Example: Query all the results from the customer table
+SELECT * FROM customer;
+
+-- Query all the results from actor
+SELECT * FROM actor;
+-- Query all the results from city
+SELECT * FROM city;
+-- Query all the results from film
+SELECT * FROM film;
+-- Query all the results from category
+SELECT * FROM category;
+-- Query all the results from film_actor
+SELECT * FROM film_actor;
+-- Query all the results from inventory
+SELECT * FROM inventory;
+-- Query all the results from payment
+SELECT * FROM payment;
+
+-- Example on SELECT statement
+-- Query specific columns
+-- Query name results only for category
+SELECT name FROM category;
+
+-- Query store_id and film_id from inventory
+SELECT store_id, film_id FROM inventory;
+-- Query any active customers and their first name from Customer Table
+SELECT active, first_name FROM customer;
+-- Query the city_id and postal_code from address table
+SELECT city_id, postal_code FROM Address;
+-- Query the first name and their actor id for Actor table
+SELECT first_name, actor_id FROM actor;
+-- Query I want to know the store id for Store table
+SELECT Store_id FROM Store;
+
+-- SQL Select Distinct
+-- Write a query that returns unique values from rating in film table
+SELECT DISTINCT rating FROM film;
+
+-- Student Practice
+-- Write a query to display unique staff id from rental table
+SELECT DISTINCT staff_id FROM rental;
+-- Fetch the unique store ids for inventory
+SELECT DISTINCT Store_id FROM inventory;
+-- Fetch the unique values for country_id for city table
+SELECT DISTINCT country_id FROM city;
+
+-- SQL WHERE Clause
+-- EXAMPLE: Fetch the data from category table and return only those 
+-- name equal to Action
+SELECT * FROM category WHERE name = 'Action';
+
+-- STUDENT EXAMPLE: 
+-- Query 
+Select * from customer
+
+
+-- Query firstname and actor id from actor table whos name is Zero
+
+-- Query last name from actor table whos name is first name is Uma
+
+-- Fetch data from address for those city id that equal 449
+
+-- fetch phone number for those districts called California
+
+-- Fetch the city for those with country id 60
+
+-- Fetch the city for those with country id 107
+
+-- Query the Country for country id 102
+
+-- Query store id for the customers whose address id is 45
+
+-- Query email address for customer with name Marie
+
+-- Query the email address and customer id for Debra Nelson
+
+
+-- NEXT topics
+-- AND, OR
+-- ORDER BY
+-- MIN, MAX
+-- COUNT, SUM
+-- LIKE
+-- IN
+-- BETWEEN
+-- JOINS
+-- UNIONS
+-- GROUP BY
+-- HAVING
+
+
+-- SQL AND, OR
+-- EXAMPLE: Fetch the phone number for address 23 Workhaven Lane and district Alberta
+SELECT * FROM address
+WHERE address = '23 Workhaven Lane'
+AND district = 'Alberta'
+
+-- Student Practice
+-- Query the postcode code for district Lima and city_id 305
+SELECT postal_code FROM address
+WHERE district = 'Lima' AND city_id = 305;
+
+-- Query address and address id for city id 85 and postal code 60304
+select address, address_id 
+from address where city_id = '85' 
+and postal_code = '60304';
+
+-- Fetch the email for Linda Williams
+SELECT email
+From customer
+Where first_name = 'Linda'
+AND last_name = 'Williams';
+
+-- Fetch the full name for customer id 403 and address id 408
+SELECT first_name, last_name FROM customer
+WHERE customer_id = 403
+AND address_id = 408;
+
+-- Fetch name and email for either Danny Isom or Tony Carranza
+SELECT first_name AS FirstName, last_name AS LastName, email
+FROM customer
+WHERE first_name = 'Danny' AND last_name = 'Isom'
+OR first_name = 'Tony' AND last_name = 'Carranza';
+
+select first_name, last_name, email from customer
+where first_name = 'Danny' and last_name = 'Isom'
+or first_name = 'Tony' and last_name = 'Carranza';
+
+
+-- SQL ORDER BY keyword
+-- The ORDER BY keyword is used to sort the result-set in ascending order or descending order
+SELECT * FROM film
+ORDER BY title DESC
+
+
+-- Query all results based on ratings in desc order 
+SELECT * FROM film
+ORDER BY rating DESC
+-- Query films with highest rental rate first
+SELECT * FROM film
+ORDER BY rental_rate DESC
+
+-- Fetch the customer id and rental id for customers with ID 341 and display list starting with
+-- highest amount.
+SELECT customer_id, rental_id FROM payment
+WHERE customer_id = 341
+ORDER BY amount DESC
+
+-- SQL IS NULL Operator
+-- A Field with a NULL value is a field with no value
+-- EXAMPLE for NULL:
+SELECT * FROM address
+WHERE address2 IS null;
+
+SELECT * FROM address
+WHERE address2 IS NOT null;
+
+SELECT * FROM address
+WHERE address IS NOT null;
+
+SELECT * FROM actor;
+
+-- SQL SELECT LIMIT (MYSQL, ORACLE use TOP)
+-- LIMIT is a clause use to specify number of records to return
+-- EXAMPLE:  Query the first 3 results for address table
+SELECT * FROM address LIMIT 3;
+
+-- QUERY the last 3 results from table country
+SELECT * FROM country
+ORDER BY country desc
+LIMIT 3;
+-- Fetch the first 10 results for film
+SELECT * FROM film
+LIMIT 10;
+-- Fetch the first 2 customers with store id = 1
+SELECT * FROM customer
+WHERE store_id = 1
+LIMIT 2;
+
+-- Query the address and phone number for district QLD return 1 result in desc address from Address table
+SELECT * FROM address
+WHERE district = 'QLD'
+ORDER BY address DESC
+LIMIT 1
+
+-- Query the 3 highest replacements cost for all movies rated R table film
+SELECT * FROM film
+WHERE rating = 'R'
+ORDER BY replacement_cost DESC
+LIMIT 3
+
+-- * return the second highest salary from a table. 
+-- * return the 3rd highest salary from a table
+
+-- MIN, MAX
+-- COUNT, SUM
+-- LIKE
+-- IN
+-- BETWEEN
+-- JOINS
+-- UNIONS
+-- GROUP BY
+-- HAVING
+
+-- SQL MIN, MAX  < or >  and Arithmetic Functions
+-- The MIN() function returns the smallest value from the selected column
+-- The MAX() function returns the largest values from the selected Column
+
+SELECT * FROM payment where amount = 11.99;	
+SELECT MIN(amount) FROM payment;
+SELECT MAX(amount) FROM payment;
+SELECT customer_id, amount FROM payment where amount > 11.00;
+SELECT customer_id, amount FROM payment where amount < 11.00;
+
+Select * from film;
+-- Add an arithmetic function
+SELECT rental_duration, rental_duration + 1 AS "newPromotionalRate"
+FROM film limit 10;
+
+-- BETWEEN EXAMPLE: Query all the results for film table where the replacement cost is between 12.99 and 15.99
+SELECT * FROM film
+WHERE replacement_cost BETWEEN 12.99 AND 15.99;
+
+-- COUNT -> returns the total count for either all records or specific column
+-- QUERY the total count for film table;
+SELECT count(*) FROM film;
+
+-- Student Practice Query: 
+-- Fetch the total count for unique(DISTINCT) values in address table for column post code 
+SELECT DISTINCT postal_code FROM address;
+SELECT COUNT(DISTINCT postal_code) AS postal_Count FROM address;
+
+-- Query the count function to determine the number of different languages in the language table.
+SELECT * FROM language
+SELECT COUNT(name) FROM language;
+
+-- Query the max amount for payment table
+SELECT * FROM payment;
+SELECT MAX(AMOUNT) FROM payment;
+
+-- Query customer_id for amount less than 5.99 (payment table)
+SELECT * FROM payment;
+SELECT customer_id, amount
+FROM payment
+WHERE amount < 5.99;
+
+-- Query all the results for amounts between 2.99 and 5.99
+
+-- Query rental_date and inventory_id for those customer_id between 250 and 400 for customer_id in desc order (rental Table)
+
+-- Query results for customer_id greater than 350 for rental table order by customer_id asc order
+
+-- Query title for movies add $1 fee to rental_rate as RATEWITHTIP and display original rental rate next to TIP
+SELECT * FROM FILM
+SELECT title, rental_rate + 1 AS "RATEWITHTIP", rental_rate FROM film;
+
+
+-- COUNT, AVG, SUM
+-- The COUNT() Function returns the number of rows that matches a specific criteria. 
+
+SELECT * FROM FILM
+SELECT count(length) FROM film;
+
+-- AVG() function returns the average value of a number column
+-- Query the average replacement cost for film table
+SELECT AVG(replacement_cost) FROM Film;
+
+-- THE SUM() function returns the total sum of any numberic value
+SELECT SUM(rental_rate) FROM film;
+
+-- STUDENT PRACTICE:
+-- Student: Query average rental rate for movies rated G  for film table
+SELECT AVG(rental_rate)  FROM film WHERE rating = 'G';
+-- Student: Query the sum for the replacement cost  for film
+SELECT SUM(Replacement_cost) FROM film;
+
+-- QUERY using LIKE
+-- THE LIKE operator is used in a WHERE clause to search for specific pattern in a column.
+-- There are wildcards often used in conjunction with the LIKE OPERATOR
+
+-- The percent sign (%) represents zero, one or Multiples character
+-- The underscore sign (_) represents one, single character.
+
+-- Query last name for individuals whose name starts with Ni From actor table.
+SELECT * FROM actor;
+SELECT * FROM actor WHERE first_name like 'Ni%';
+
+-- Query last name for individuals whose name contains al in between.
+SELECT * FROM actor WHERE first_name like 'Va_';
+
+-- Student: Query the count from actor table whose last name ends with son
+SELECT count(*) FROM actor where last_name like '%son';
+
+-- SQL IN Operator
+-- IN Operator allows you to specify multiple values in the WHERE clause
+-- IN Operator is a shorthand for multiple OR conditions
+
+-- Query the results only for those movies with Rating R and PG using IN operator.
+SELECT * FROM film;
+SELECT * FROM film WHERE rating IN('R', 'PG');
+
+-- Query the results only for those movies with Rating R and PG using NOT IN operator.
+SELECT * FROM film WHERE rating NOT IN('R', 'PG');
+
+-- STUDENT: Query all the records for rental_duration that are IN 4 and 6
+SELECT * FROM film WHERE rental_duration IN(4, 6);
+
+-- Query the title for film table for description that contains Butler.
+SELECT title, description FROM film
+WHERE description LIKE '%Butler%';
+
+-- SQL Aliases
+-- Aliases are used to give a table or a column a temporary name
+-- we use keyword AS for Aliases
+
+-- Query full name from actor table show as in "Alex Rodriguez" in one column named full_name
+SELECT * FROM actor;
+SELECT actor_id, (first_name || ', ' || last_name) AS full_name FROM actor;
+
+
+-- STUDENT: Query the title and the year it was released as new_Movie_release from film table
+SELECT * FROM FILM;
+SELECT (title || ' - ' || release_year) AS "new_Movie_release" FROM film;
+
+-- SQL JOIN
+-- A JOIN clause is used to combine rows from two or more tables, based on related column between them
+
+-- There are different types of SQL JOINS
+-- HERE is a list of some:
+
+-- (INNER) JOIN: Returns records that have matching values in both tables
+-- LEFT (OUTER) JOIN: Returns all records from the left table, and the matching records from the right table
+-- RIGHT (OUTER) JOIN: Returns all records from the right table and the matching records form the left table
+-- FULL (OUTER) JOIN: Returns all records when there is a match in either left or right table.
+
+-- QUERY: First name customer_id, last name, amount, payment date and order by payment date;
+SELECT customer.customer_id, customer.first_name, customer.Last_name, payment.amount, payment.payment_date
+FROM customer
+INNER JOIN payment
+ON customer.customer_id = payment.customer_id
+ORDER BY payment.payment_date;
+
+-- STUDENT: Query customer id, firstname lastname email amount payment date for customer id = 2 (customer, payment tables)
+SELECT c.customer_id, c.first_name, c.last_name, c.email, p.amount, p.payment_date
+FROM customer c
+JOIN payment p
+ON c.customer_id = p.customer_id
+WHERE c.customer_id = 2;
+
+-- Since Both tables have the same customer_id column you can use the Syntax USING
+SELECT c.customer_id, c.first_name, c.last_name, c.email, p.amount, p.payment_date
+FROM customer c
+JOIN payment p
+USING(customer_id)
+WHERE c.customer_id = 2;
+
+-- Combine more than 2 tables
+-- display customer_id, first name as customer_first_name, last_name as customer_last_name, 
+-- first name as staff_first_name, last name as staff_last_name
+-- Amount, and payment_date
+SELECT c.customer_id, 
+c.first_name AS customer_first_name, 
+c.last_name AS customer_last_name, 
+s.first_name AS staff_first_name, 
+s.last_name AS staff_last_name, 
+p.amount, 
+p.payment_date
+FROM customer c
+JOIN payment p
+USING(customer_id)
+JOIN staff s
+USING(staff_id)
+
+
+-- SQL LEFT JOIN
+-- The LEFT JOIN returns all records from the left table (table1) and the matching records from 
+-- the right table (Table2). The result is 0 records from the right side if there is no match
+
+-- Query the current inventory_id for movie titles verify if there are movies with no inventory assigned order by title
+SELECT * FROM film;
+SELECT * FROM inventory;
+
+SELECT f.film_id, f.title, i.inventory_id
+FROM film f
+LEFT JOIN inventory i
+USING(film_id)
+ORDER BY title;
+
+
+-- Query film that are not in the inventory_id or have null value for inventory_id display film_id, title, inventory_id order by asc title
+SELECT f.film_id, f.title, i.inventory_id
+FROM film f
+LEFT JOIN inventory i
+USING(film_id)
+WHERE i.inventory_id IS NULL
+ORDER BY title;
+
+SELECT f.film_id, f.title, i.inventory_id
+FROM film f
+LEFT JOIN inventory i
+USING(film_id)
+WHERE i.inventory_id IS NOT NULL
+ORDER BY title;
+
+-- SQL RIGHT JOIN or RIGHT OUTER JOIN
+-- THE RIGHT JOIN keyword returns all the records from the right table. and 
+-- matching records from the left table. 
+
+-- CRUD - CREATE ->READ -> UPDATE -> DELETE
+-- DDL -> Data Definition Language .- It is used to define the structures like schema, tables, constraints databases. 
+-- DML -> Data Manipulation Language .- It is used to manipulate data. We use functions such as DELETE, INSERT, UPDATE (Not often done
+-- in QA)
+
+-- IN order to delete or drop a table we use command DROP
+DROP TABLE IF EXISTS films;
+DROP TABLE IF EXISTS film_reviews;
+
+-- CREATING TABLES
+CREATE TABLE films(
+	film_id SERIAL PRIMARY KEY,
+	title VARCHAR(255)
+)
+
+-- ADD DATA films
+INSERT INTO films(title)
+VALUES('Joker'),
+		('Avengers: Endgame'),
+		('Parasite');
+		
+-- CREATE TABLE film_reviews
+CREATE TABLE film_reviews(
+	review_id SERIAL PRIMARY KEY,
+	film_id INT,
+	review VARCHAR(255) NOT NULL
+)
+		
+-- ADD DATA for film_reviews
+INSERT INTO film_reviews(film_id, review)
+VALUES (1, 'Excellent'),
+		(1, 'Awesome'),
+		(2, 'Cool'),
+		(NULL, 'Beautiful');
+
+-- A film can have zero or many reviews and a review belongs to zero or one film
+-- The film_id column in the films references the film_id colun in the film_reviews Table. 
+
+SELECT * FROM FILMS;
+-- 1,2,3
+SELECT * FROM film_reviews;
+-- 1,1,2,NULL
+
+-- RIGHT JOIN
+SELECT fr.review, f.title 
+FROM films f
+RIGHT JOIN film_reviews fr
+USING(film_id)
+
+SELECT fr.review, f.title 
+FROM films f
+LEFT JOIN film_reviews fr
+USING(film_id)
+
+-- EXECUTE INNER JOIN 
+
+SELECT fr.review, f.title 
+FROM films f
+JOIN film_reviews fr
+USING(film_id)
+
+-- QUERY to find rows from the right table that does not have any corresponding rows in the left table
+SELECT fr.review, f.title 
+FROM films f
+RIGHT JOIN film_reviews fr
+USING(film_id)
+WHERE title IS NULL;
+
+-- CREATE 2 new tables
+CREATE TABLE departments (
+	department_id serial PRIMARY KEY,
+	department_name VARCHAR (255) NOT NULL
+);
+
+CREATE TABLE employees (
+	employee_id serial PRIMARY KEY,
+	employee_name VARCHAR (255),
+	department_id INTEGER
+);
+
+INSERT INTO departments (department_name)
+VALUES
+	('Sales'),
+	('Marketing'),
+	('HR'),
+	('IT'),
+	('Production');
+
+INSERT INTO employees (
+	employee_name,
+	department_id
+)
+VALUES
+	('Bette Nicholson', 1),
+	('Christian Gable', 1),
+	('Joe Swank', 2),
+	('Fred Costner', 3),
+	('Sandra Kilmer', 4),
+	('Julia Mcqueen', NULL);
+	
+select * from employees;
+select * from departments;
+
+-- SQL FULL OUTER JOIN / FULL JOIN keyword returns all records when there is a match in the left table or the right table
+
+SELECT e.employee_name, d.department_name
+FROM employees e
+FULL OUTER JOIN departments d
+ON d.department_id = e.department_id;
+
+-- Julia does not belong to any department
+SELECT e.employee_name, d.department_name
+FROM employees e
+FULL OUTER JOIN departments d
+ON d.department_id = e.department_id
+WHERE department_name IS NULL;
+
+
+
+
+
